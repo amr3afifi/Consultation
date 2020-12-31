@@ -13,7 +13,7 @@ import About from './Components/About'
 import CreateMatch from './Components/CreateMatch'
 import AddStadium from './Components/AddStadium'
 import EditProfile from './Components/EditProfile'
-
+import Reservations from './Components/Reservations'
 // Routes
 // import {FanProtectedRoute} from './ProtectedRoutes/FanProtectedRoute';
 // import {GuestProtectedRoute} from './ProtectedRoutes/GuestProtectedRoute';
@@ -38,7 +38,8 @@ function App() {
     
         {/*Logged In */}
         <LoggedInProtectedRoute path="/editProfile" exact component={EditProfile}/>
-    
+        <LoggedInProtectedRoute path="/reservations" exact component={Reservations}/>
+
 
         {/*Not Logged In */}
         <NotLoggedInRoute path="/signup" exact component={SignUp}/>

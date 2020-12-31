@@ -60,6 +60,7 @@ toggleCollapse = () => {
 logOut = () => {
   this.setState({ status: "not connected" })
   localStorage.clear();
+  window.location.reload(false);
 }
 
 render() {
@@ -111,7 +112,7 @@ render() {
 
                             <MDBNavItem>
                             <MDBDropdown>
-                              <MDBDropdownToggle nav caret >Amr <em></em>
+                              <MDBDropdownToggle nav caret >Hello, Amr <em></em>
                                 <MDBIcon icon="user" />
                               </MDBDropdownToggle>
                               <MDBDropdownMenu className="dropdown-default">
