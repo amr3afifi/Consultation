@@ -13,7 +13,7 @@ export const ManagementProtectedRoute = ({
     <Route
       {...rest}
       render={props => {
-        if (localStorage.getItem("isLoggedIn")==="true" && localStorage.getItem("userType")==="manager") {
+        if (localStorage.getItem("isLoggedIn")==="true" && (localStorage.getItem("userType")==="manager"   || localStorage.getItem("userType")==="admin" ) ) {
           return <Component {...props} />;
         } else {
           return (

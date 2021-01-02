@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn, MDBContainer } from "mdbreact";
+import React, { Component } from "react";
+import {Route} from 'react-router-dom'
+import { MDBCard, MDBCardBody, MDBCardTitle, MDBBtn, MDBContainer } from "mdbreact";
 import PropTypes from "prop-types";
 /**
  * Track class
@@ -45,7 +46,7 @@ export class MatchCard extends Component {
     
     <MDBCardBody>
       <MDBCardTitle>{this.state.team1} VS {this.state.team2}</MDBCardTitle>
-      <MDBCardText>
+      <MDBContainer>
         <div style={{ width: "200px"}}>{this.state.date} at {this.state.time}</div>
         <div style={{ width: "200px"}}>{this.state.venue}</div>
         {modecheck === 'false' ? 
@@ -54,11 +55,12 @@ export class MatchCard extends Component {
         ( <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">Cancel</MDBBtn>)}
 
          {modecheck === 'false' && userType==='manager' ? 
-        ( <MDBContainer><MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default">  Edit</MDBBtn>
+        ( <MDBContainer>
+        <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/editMatch') }}>Edit</MDBBtn>)} />
         <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">  Delete</MDBBtn></MDBContainer> )
           :
         ( <div></div>)}
-      </MDBCardText>
+      </MDBContainer>
       
     </MDBCardBody>
   </MDBCard>

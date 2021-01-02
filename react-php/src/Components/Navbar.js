@@ -83,15 +83,11 @@ render() {
             <MDBNavItem>
               <MDBNavLink className=" px-4" to="/matches">Matches</MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className=" px-4" to="#!">Stadiums</MDBNavLink>
-            </MDBNavItem>
-            
             
           </MDBNavbarNav>
           <MDBNavbarNav  style={{float:'right',margin:'0 0 0 20px',padding:' 0 10px'}}>
                        
-            {userType === "manager"? (
+            {((userType === "manager") || (userType === "admin") )? (
               <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret >Management</MDBDropdownToggle>
@@ -106,13 +102,28 @@ render() {
               :
               (<div></div>)}
 
+            {userType === "admin"? (
+              <MDBNavItem>
+              <MDBDropdown>
+                <MDBDropdownToggle nav caret >AdminTools</MDBDropdownToggle>
+                <MDBDropdownMenu className="dropdown-default">
+                  <MDBDropdownItem ><Link to="/newUsers">New Requests</Link></MDBDropdownItem>
+                  <MDBDropdownItem ><Link to="/removeUsers">Remove Users</Link></MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>
+              </MDBNavItem>
+
+              )
+              :
+              (<div></div>)}
+
 
             {logInOrNot === "connected" ? (
 
 
                             <MDBNavItem>
                             <MDBDropdown>
-                              <MDBDropdownToggle nav caret >Hello, Amr <em></em>
+                              <MDBDropdownToggle nav caret >Hello <em></em>
                                 <MDBIcon icon="user" />
                               </MDBDropdownToggle>
                               <MDBDropdownMenu className="dropdown-default">

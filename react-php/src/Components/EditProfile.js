@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { MDBBtn } from 'mdbreact';
+import {Route,Redirect} from 'react-router-dom'
 import "./Auth.css"
 
 /**
@@ -9,7 +11,8 @@ import "./Auth.css"
 export default class EditProfile extends Component {
     
     state = { 
-        user : {username:'amr3afifi',email:'amr7afifi@gmail.com',first:'Amr',last:"Afifi",day:'26',month:'07',year:'1998',gender:'Male',city:'Giza',address:'oba street',role:'fan'}
+        user : {username:'amr3afifi',email:'amr7afifi@gmail.com',first:'Amr',last:"Afifi",day:'26',month:'07',year:'1998',gender:'Male',city:'Giza',address:'oba street',role:'fan'},
+        status:''
     }
 
     
@@ -36,9 +39,10 @@ export default class EditProfile extends Component {
         document.getElementById('sign-up-form-day').readOnly=true;
         document.getElementById('sign-up-form-month').readOnly=true;
         console.log(this.state)
+       
       }
 
-      componentDidMount =()=>{
+    componentDidMount =()=>{
         document.getElementById('ep-email').value=this.state.user.email;
         document.getElementById('ep-username').value=this.state.user.username;
         document.getElementById('ep-first').value=this.state.user.first;
@@ -51,11 +55,23 @@ export default class EditProfile extends Component {
        
     }
 
+    submitRequest=()=>{
+        this.setState({status:"connected"})
+    }
+
     render() {
+        const submitOrNot = this.state.status;
         return (
             <div id="my-sign-up">
+                {submitOrNot==="connected" ? (
+            <div>
+            <Redirect to="/matches"/>
+            </div>
+            )
+            :
+            (
                 <div className="center-box">
-            <button className="btn-danger my-button " style={{border:'0px',width:"100%",margin:"20px auto"}} type="button" onClick={this.enableEdit} >Edit</button>
+            <MDBBtn className="my-button " color="danger" style={{border:'0px',width:"100%",margin:"20px auto"}} type="button" onClick={this.enableEdit} >Edit</MDBBtn>
             <form method="POST">
             <label>Email:</label><input size="10"   id="ep-email" className="form-control mb-3" readOnly="readonly" />
             <label>Username:</label><input size="10"  id="ep-username" className="form-control mb-3" readOnly="readonly" />
@@ -94,10 +110,13 @@ export default class EditProfile extends Component {
             <br></br>
 
             <br></br>
-            <button  className="my-button " style={{border:'0px',width:"175px",margin:"20px auto"}} type="submit" >Submit</button>
-            <button className="my-button btn-danger" style={{border:'0px',width:"175px",margin:"20px auto"}} type="button"  onClick={this.diableEdit} >Cancel</button>
+            <MDBBtn  className="my-button " style={{border:'0px',width:"175px",margin:"20px auto"}} type="submit" onClick={() => this.submitRequest()} >Submit</MDBBtn>
+            <Route render={({ history}) => (<MDBBtn color="danger" style={{border:'0px',width:"175px",margin:"20px auto"}} onClick={() => { history.push('/') }}>Cancel</MDBBtn>)} />
+            {/* <MDBBtn className="my-button" color="danger" style={{border:'0px',width:"175px",margin:"20px auto"}} type="button"  onClick={this.diableEdit} >Cancel</MDBBtn> */}
             </form>
             </div>
+            )}
+                
             </div>
         )
     }

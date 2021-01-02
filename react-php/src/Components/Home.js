@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBRow, MDBCol } from 'mdbreact';
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
             <MDBCardTitle></MDBCardTitle>
             <h5 className="">No Room For Racism</h5>
             <h4 className="indigo-text text-danger"><strong>The Egyptian Premier League</strong></h4>
-            <MDBCardText><h2>دوري المتعة</h2></MDBCardText>
+            <h4>دوري المتعة</h4>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>

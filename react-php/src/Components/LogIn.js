@@ -111,9 +111,9 @@ class LogIn extends Component {
 
         if(is_email_valid && is_psw_valid)
         {
-            
+            // Request Login
             localStorage.setItem("isLoggedIn",'true');
-            localStorage.setItem("userType",'manager');
+            localStorage.setItem("userType",'admin');
             this.setState({status: 'connected'});
             window.location.reload(false);
         } 

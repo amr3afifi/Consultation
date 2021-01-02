@@ -12,16 +12,20 @@ export default class Matches extends Component {
 ,user:''
 }
       
-      componentDidMount() 
+      componentWillMount() 
       {
         let userType = localStorage.getItem("userType");
         this.setState({user: userType});
+        
       }
 
+
+
     render() {
+        const userType = this.state.user;
         return (
             <div  style={{minHeight:'80vh'}}>
-            <MatchList matches={this.state.matches} mode='false' user={this.state.user}/>
+            <MatchList matches={this.state.matches} mode='false' user={userType}/>
 
             </div>
         )

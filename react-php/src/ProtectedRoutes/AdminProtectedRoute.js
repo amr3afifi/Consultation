@@ -5,7 +5,7 @@ import { Route, Redirect } from "react-router-dom";
      * Protected route to allow only regular guest.
      * @extends Component
      */
-export const GuestProtectedRoute = ({
+export const AdminProtectedRoute = ({
   component: Component,
   ...rest
 }) => {
@@ -13,7 +13,7 @@ export const GuestProtectedRoute = ({
     <Route
       {...rest}
       render={props => {
-        if (localStorage.getItem("isLoggedIn")==="true" && localStorage.getItem("userType")==="guest") {
+        if (localStorage.getItem("isLoggedIn")==="true" && localStorage.getItem("userType")==="admin") {
           return <Component {...props} />;
         } else {
           return (

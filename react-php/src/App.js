@@ -13,10 +13,14 @@ import About from './Components/About'
 import CreateMatch from './Components/CreateMatch'
 import AddStadium from './Components/AddStadium'
 import EditProfile from './Components/EditProfile'
+import EditMatch from './Components/EditMatch'
 import Reservations from './Components/Reservations'
+import NewUsers from './Components/NewUsers'
+import RemoveUsers from './Components/RemoveUsers'
+
 // Routes
 // import {FanProtectedRoute} from './ProtectedRoutes/FanProtectedRoute';
-// import {GuestProtectedRoute} from './ProtectedRoutes/GuestProtectedRoute';
+import {AdminProtectedRoute} from './ProtectedRoutes/AdminProtectedRoute';
 import {LoggedInProtectedRoute} from './ProtectedRoutes/LoggedInProtectedRoute';
 import {ManagementProtectedRoute} from './ProtectedRoutes/ManagementProtectedRoute';
 import {NotLoggedInRoute} from './ProtectedRoutes/NotLoggedInRoute';
@@ -34,12 +38,16 @@ function App() {
 
         {/*Manager pages */}
         <ManagementProtectedRoute path="/createMatch" exact component={CreateMatch}/>
+        <ManagementProtectedRoute path="/editMatch" exact component={EditMatch}/>
         <ManagementProtectedRoute path="/addStadium" exact component={AddStadium}/>
     
         {/*Logged In */}
         <LoggedInProtectedRoute path="/editProfile" exact component={EditProfile}/>
         <LoggedInProtectedRoute path="/reservations" exact component={Reservations}/>
 
+        {/*ADMIN pages */}
+        <AdminProtectedRoute path="/newUsers" exact component={NewUsers}/>
+        <AdminProtectedRoute path="/removeUsers" exact component={RemoveUsers}/>
 
         {/*Not Logged In */}
         <NotLoggedInRoute path="/signup" exact component={SignUp}/>
