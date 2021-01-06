@@ -50,11 +50,12 @@ export class MatchCard extends Component {
         <div style={{ width: "200px"}}>{this.state.date} at {this.state.time}</div>
         <div style={{ width: "200px"}}>{this.state.venue}</div>
         {modecheck === 'false' ? 
-        ( <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default"> Book</MDBBtn> )
+        ( 
+        <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/reserveSeats') }}>Book</MDBBtn>)} /> )
           :
         ( <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">Cancel</MDBBtn>)}
 
-         {modecheck === 'false' && userType==='manager' ? 
+         {modecheck === 'false' && (userType==='manager' || userType==='admin') ? 
         ( <MDBContainer>
         <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/editMatch') }}>Edit</MDBBtn>)} />
         <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">  Delete</MDBBtn></MDBContainer> )

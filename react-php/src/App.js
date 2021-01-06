@@ -14,6 +14,7 @@ import CreateMatch from './Components/CreateMatch'
 import AddStadium from './Components/AddStadium'
 import EditProfile from './Components/EditProfile'
 import EditMatch from './Components/EditMatch'
+import ReserveSeats from './Components/ReserveSeats'
 import Reservations from './Components/Reservations'
 import NewUsers from './Components/NewUsers'
 import RemoveUsers from './Components/RemoveUsers'
@@ -44,6 +45,7 @@ function App() {
         {/*Logged In */}
         <LoggedInProtectedRoute path="/editProfile" exact component={EditProfile}/>
         <LoggedInProtectedRoute path="/reservations" exact component={Reservations}/>
+        <LoggedInProtectedRoute path="/reserveSeats" exact component={ReserveSeats}/>
 
         {/*ADMIN pages */}
         <AdminProtectedRoute path="/newUsers" exact component={NewUsers}/>
