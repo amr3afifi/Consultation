@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBBtn, MDBContainer } from "mdbreact";
 import PropTypes from "prop-types";
-/**
- * Track class
- * @extends Component
- */
+import axios from 'axios'
+import {ConfigContext} from '../Context/ConfigContext'
+
+
 export class UserCard extends Component {
+  static contextType=ConfigContext;
+
   state = {
     id:'',
     first:'',
@@ -19,7 +21,7 @@ export class UserCard extends Component {
   
   componentDidMount() {
     this.setState({
-      id: this.props.user.id,
+      id: this.props.user._id,
       first: this.props.user.first,
       last: this.props.user.last,
       role: this.props.user.role,
@@ -32,12 +34,52 @@ export class UserCard extends Component {
   }
 
     approveRequest = () => {
+
+      axios.put(this.context.baseURL+'/approveUser',
+      {"id":this.state.id}
+      ).then(res => {
+        if(res.status===200) // Successful
+        {
+            if(res.data.success===true)
+            {
+              window.location.reload(false);
+            }
+        }
+        else
+        {      alert(res)          }}).catch(err =>{alert(err)})
+
     }
 
     deleteRequest = () => {
+      axios.put(this.context.baseURL+'/deleteUser',
+      {"id":this.state.id}
+      ).then(res => {
+        if(res.status===200) // Successful
+        {
+          console.log(res.data)
+            if(res.data.success===true)
+            {
+              window.location.reload(false);
+            }
+        }
+        else
+        {      alert(res)          }}).catch(err =>{alert(err)})
     }
 
-    denyRequest = () => {    
+    denyRequest = () => {  
+      axios.put(this.context.baseURL+'/declineUser',
+      {"id":this.state.id}
+      ).then(res => {
+        if(res.status===200) // Successful
+        {
+          console.log(res.data)
+            if(res.data.success===true)
+            {
+              window.location.reload(false);
+            }
+        }
+        else
+        {      alert(res)          }}).catch(err =>{alert(err)})  
 
     }
 
@@ -49,8 +91,9 @@ export class UserCard extends Component {
   <MDBCard style={{ minWidth: '450px',width: "80%", margin: "15px auto 10px auto" }}>
     
     <MDBCardBody>
-      <MDBCardTitle>ID: {this.state.id} Name: {this.state.first} {this.state.last}</MDBCardTitle>
+      <MDBCardTitle> Name: {this.state.first} {this.state.last}</MDBCardTitle>
       <MDBContainer>
+        <div style={{ width: "250px"}}>ID:{this.state.id}</div>
         <div style={{ width: "200px"}}>Role: {this.state.role}</div>
         <div style={{ width: "200px"}}>Username: {this.state.username}</div>
 
@@ -72,7 +115,7 @@ export class UserCard extends Component {
 
 
 UserCard.propTypes = {
-  match: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default UserCard;

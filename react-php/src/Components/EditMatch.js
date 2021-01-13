@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import football from '../pictures/football.png'
 import {Route,Redirect} from 'react-router-dom'
 import { MDBCard, MDBCardBody, MDBCardImage,MDBCardHeader, MDBCardTitle, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import axios from 'axios'
+import {ConfigContext} from '../Context/ConfigContext'
 
 import './Auth.css'
 /**
@@ -10,7 +12,7 @@ import './Auth.css'
  */
 
 export default class EditMatch extends Component {
-
+    static contextType=ConfigContext;
     constructor() {
         super()
         
@@ -51,7 +53,18 @@ export default class EditMatch extends Component {
         
     }
     componentDidMount =()=>{
-
+        
+        axios.get(this.context.baseURL+'/editMatch').then(res => {
+            if(res.status===200) // Successful
+            {
+                console.log(res.data);
+                if(res.data.success===true)
+                {
+                    this.setState({matches: res.data.matches});
+                }
+            }
+            else
+            {      alert(res)          }}).catch(err =>{alert(err)})
         //Get request edit match
 
         var select = document.getElementById("team1")

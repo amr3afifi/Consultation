@@ -23,7 +23,7 @@ export class UserList extends Component {
 
     render() {
         return this.props.users.map((user) => (
-            <UserCard key={user.id} user={user} id={user.id} first={user.first} last={user.last} role={user.role} username={user.username} mode={this.props.mode} userType={this.state.userType}/>
+            <UserCard key={user._id} user={user} id={user._id} first={user.first} last={user.last} role={user.role} username={user.username} mode={this.props.mode} userType={this.state.userType}/>
         ));
     }
 }

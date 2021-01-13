@@ -22,7 +22,7 @@ export default class AddStadium extends Component {
                 <MDBCardBody cascade className="p-3">
         
                 <label>Name:</label><input style={{margin:'10px auto', width:"60%", padding:'5px'}} size="10" type="text" className="form-control mb-3" minLength="8" maxLength="20" required/>
-                <label>Location:</label><input style={{margin:'10px auto', width:"60%", padding:'5px'}} size="10" type="text" className="form-control mb-3"  minLength="8" maxLength="20"/>
+                {/* <label>Location:</label><input style={{margin:'10px auto', width:"60%", padding:'5px'}} size="10" type="text" className="form-control mb-3"  minLength="8" maxLength="20"/> */}
                 <label>#Rows </label><input style={{margin:'0 20px',display:'inline-block', width:'12%'}}size="10" id="ep-first" type="number" className="form-control mb-3"  required/>
                 <label> #Seats &nbsp;  </label><input style={{display:'inline-block', width:'12%'}} size="10" type="number"  className="form-control mb-3" required/>
                 <br></br>

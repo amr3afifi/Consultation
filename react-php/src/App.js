@@ -26,9 +26,12 @@ import {LoggedInProtectedRoute} from './ProtectedRoutes/LoggedInProtectedRoute';
 import {ManagementProtectedRoute} from './ProtectedRoutes/ManagementProtectedRoute';
 import {NotLoggedInRoute} from './ProtectedRoutes/NotLoggedInRoute';
 
+import ConfigContextProvider from './Context/ConfigContext';
+
 function App() {
   return (
     <Router>
+      <ConfigContextProvider>
       <Navbar/>    
       <Switch> 
 
@@ -39,7 +42,7 @@ function App() {
 
         {/*Manager pages */}
         <ManagementProtectedRoute path="/createMatch" exact component={CreateMatch}/>
-        <ManagementProtectedRoute path="/editMatch" exact component={EditMatch}/>
+        <ManagementProtectedRoute path="/editMatch" component={EditMatch}/>
         <ManagementProtectedRoute path="/addStadium" exact component={AddStadium}/>
     
         {/*Logged In */}
@@ -58,6 +61,7 @@ function App() {
         <Route path="/" component={NotFound}/>
       </Switch>
       <Footer/>
+      </ConfigContextProvider>
     </Router>  
   );
 }

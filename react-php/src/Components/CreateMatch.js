@@ -32,6 +32,7 @@ export default class CreateMatch extends Component {
         otherSelect.options[changedSelect.selectedIndex].disabled = true;
         
     }
+
     componentDidMount =()=>{
 
         var select = document.getElementById("team1")
@@ -101,6 +102,21 @@ export default class CreateMatch extends Component {
                 </select>
                 </div>
 
+                <div className="row">
+                <h6>Refree</h6>
+                <input type="text" style={{margin:'10px auto', width:"50%", padding:'5px'}} id="refree" >
+                </input>
+                </div>
+
+                <div className="row">
+                <label style={{margin:'10px auto', width:"40%", padding:'5px'}}>Lineman 1</label>
+                <label style={{margin:'10px auto', width:"40%", padding:'5px'}}>Lineman 2</label>
+                </div>
+                <div className="row">
+                <input  type="text" style={{margin:'15px auto', width:"30%", padding:'5px'}} id="lineman1" ></input>
+                <input  type="text" style={{margin:'15px auto', width:"30%", padding:'5px'}} id="lineman2" ></input>
+                </div>
+
                 <h6>Date & Time</h6>
                 
                 <input style={{margin:'10px 10px', width:"50%", padding:'5px'}}  type="date"></input>
@@ -114,7 +130,7 @@ export default class CreateMatch extends Component {
                 
 
                 <br></br>
-                <button  className="my-button " style={{border:'0px',width:"175px",margin:"20px auto"}} type="button" >Add</button>
+                <button  className="my-button " style={{border:'0px',width:"175px",margin:"20px auto"}} type="button" onClick={{}}>Add</button>
 
                 </MDBCardBody>
               </MDBCard>  

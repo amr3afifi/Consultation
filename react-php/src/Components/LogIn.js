@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './Auth.css'
 import {Link,Redirect} from 'react-router-dom'
-
+import axios from 'axios'
+import {ConfigContext} from '../Context/ConfigContext'
 
 /**
  * Login Page Component
  * @extends Component
  */
 class LogIn extends Component {
+    static contextType=ConfigContext;
 
     constructor() {
         super()
@@ -21,7 +23,8 @@ class LogIn extends Component {
         emptypass:false,
         emptyemail:false,
         status: 'not connected',
-        invalid:false
+        invalid:false,
+        errorMessage: ''
     }
 
     }
@@ -112,10 +115,32 @@ class LogIn extends Component {
         if(is_email_valid && is_psw_valid)
         {
             // Request Login
-            localStorage.setItem("isLoggedIn",'true');
-            localStorage.setItem("userType",'admin');
-            this.setState({status: 'connected'});
-            window.location.reload(false);
+
+            axios.post(this.context.baseURL+'/signIn',
+            {"email":memail,
+             "password":mpsw
+            }
+            ).then(res => {
+                console.log(res.data);
+                if(res.status===200) // Successful
+                {
+                    
+                    if(res.data.success===true)
+                    {
+                         localStorage.setItem("isLoggedIn",'true');
+                         this.setState({status: 'connected'});
+                         localStorage.setItem("userType",res.data.role);
+                         localStorage.setItem("token",res.data.token);
+                         window.location.reload(false);
+                    }
+                    else
+                    {
+                        this.setState({errorMessage: res.data.name});
+                    }
+                }
+                else
+                {               }}).catch(err =>{alert(err)})
+
         } 
     }
 
@@ -171,10 +196,10 @@ class LogIn extends Component {
             <div className="center-box-2">
         
 
-            {this.state.invalid===true ?
+            {this.state.errorMessage!=='' ?
             (
             <div id="invalid-message">
-            Invalid email or password.
+            {this.state.errorMessage}
             </div>
             )
             :
@@ -197,7 +222,7 @@ class LogIn extends Component {
 
             {this.state.emptyemail===true?
             <div id="empty-email" className="error-message">
-            Please enter a valid Spotify email address.
+            Please enter a valid email address.
             </div>
             :
             <div>

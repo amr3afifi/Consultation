@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Auth.css'
 import {Link,Redirect} from 'react-router-dom'
+import {ConfigContext} from '../Context/ConfigContext'
+import axios from 'axios'
 
 
 /**
@@ -8,6 +10,8 @@ import {Link,Redirect} from 'react-router-dom'
  * @extends Component
  */
 class SignUp extends Component {
+    static contextType=ConfigContext;
+
     constructor() {
         super()
         
@@ -17,13 +21,13 @@ class SignUp extends Component {
         username:'',
         gender:'',
         day:'',
-        month:'',
+        month:'01',
         year:'',
         first:'',
         last:'',
         address:'',
         city:'',
-        role:'',
+        role:'fan',
         emptypass:false,
         emptyemail:false,
         emptyfirst:false,
@@ -35,6 +39,7 @@ class SignUp extends Component {
         yearerror:false,
         gendererror:false,
         status: 'not connected',
+        errorMessage: '',
         invalid:false
     }
         this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -63,7 +68,7 @@ class SignUp extends Component {
 
         if(type==="name")
         {
-            const pattern = /^[A-Za-z]$/;
+            const pattern = /^[A-Za-z]*$/;
             isValid = pattern.test( value ) && isValid
         }
     
@@ -156,7 +161,7 @@ class SignUp extends Component {
     signUpHandler = event=> {
     
         event.preventDefault();
-        // let sendDate=this.state.year+"-"+this.state.month+"-"+this.state.day;
+         let sendDate=this.state.year+"-"+this.state.month+"-"+this.state.day;
         if(this.state.first==="" && this.state.emptyfirst===false)
             this.setState({emptyfirst: true});
         if(this.state.last==="" && this.state.emptylast===false)
@@ -181,9 +186,38 @@ class SignUp extends Component {
         if(this.state.gender==="" && this.state.gendererror===false)
             this.setState({gendererror: true});
 
-        if(this.state.email!=='' && this.state.password!=='' && this.state.gender!=='' && this.state.username!=='' && this.state.day!=='' && this.state.month!=='' && this.state.year!=='' && (this.state.email===this.state.emailrecheck))
+        console.log(this.state);
+        if(this.state.email!=='' && this.state.role!=='' && this.state.address!=='' && this.state.last!=='' && this.state.first!=='' && this.state.password!=='' && this.state.gender!=='' && this.state.username!=='' && this.state.day!=='' && this.state.month!=='' && this.state.year!=='' )
         {
-            // Request SignUp
+            axios.post(this.context.baseURL+'/signUp',
+            {   
+                "email":this.state.email,
+                "password":this.state.password,
+                "username":this.state.username,
+                "first":this.state.first,
+                "last":this.state.last,
+                "role":this.state.role,
+                "gender":this.state.gender,
+                "address":this.state.address,
+                "city":this.state.city,
+                "dateOfBirth":sendDate,   
+            })   
+            .then(res => {
+                console.log(res.data);
+                if(res.status===200) // Successful
+                {
+                    
+                    if(res.data.success===true)
+                    {
+                         this.setState({errorMessage: 'Sign up Successful: but wait for admin to approve your account'});
+                    }
+                    else
+                    {
+                        this.setState({errorMessage: res.data.name});
+                    }
+                }
+                else
+                {               }}).catch(err =>{alert(err)})
         }
     }
      /**
@@ -280,6 +314,11 @@ class SignUp extends Component {
             this.setState({city: value});
         }
 
+        if(elem.id==="sign-up-form-role")
+        {
+            this.setState({role: value});
+        }
+
     }
 
      /**
@@ -291,8 +330,6 @@ class SignUp extends Component {
         switch (type) {
             case "email":
                 return this.validateEmail(val);
-            case "email_again":
-                return this.validateEmailAgain(val);
             case "psw":
                 return this.validatePassword(val);
             case "gender":
@@ -303,8 +340,6 @@ class SignUp extends Component {
                 return this.validateFirst(val);
             case 'lastname':
                 return this.validateLast(val);
-            case 'address':
-                return this.validateAddress(val);
             default:
                 return true;
         }
@@ -343,6 +378,22 @@ class SignUp extends Component {
                     <strong className="divider-title ng-binding">SIGN UP</strong>
                     </div>
                 </div>
+
+
+            {this.state.errorMessage!=='' ?
+            (
+            <div id="invalid-message">
+            {this.state.errorMessage}
+            </div>
+            )
+            :
+            (
+            <div>
+            </div>
+            )
+            }
+             
+
             {this.state.invalid===true?
             <div id="invalid-message">
             Email already taken.

@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 export class MatchCard extends Component {
   state = {
     id:'',
-    venue:'',
+    stadium:'',
     time:'',
     date:'',
     team1:'',
@@ -24,7 +24,7 @@ export class MatchCard extends Component {
   componentDidMount() {
     this.setState({
       id: this.props.match.id,
-      venue: this.props.match.venue,
+      stadium: this.props.match.stadium,
       time: this.props.match.time,
       date: this.props.match.date,
       team1: this.props.match.team1,
@@ -48,7 +48,7 @@ export class MatchCard extends Component {
       <MDBCardTitle>{this.state.team1} VS {this.state.team2}</MDBCardTitle>
       <MDBContainer>
         <div style={{ width: "200px"}}>{this.state.date} at {this.state.time}</div>
-        <div style={{ width: "200px"}}>{this.state.venue}</div>
+        <div style={{ width: "200px"}}>{this.state.stadium}</div>
         {modecheck === 'false' ? 
         ( 
         <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/reserveSeats') }}>Book</MDBBtn>)} /> )
@@ -57,7 +57,7 @@ export class MatchCard extends Component {
 
          {modecheck === 'false' && (userType==='manager' || userType==='admin') ? 
         ( <MDBContainer>
-        <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/editMatch') }}>Edit</MDBBtn>)} />
+        <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/editMatch/'+this.state.id) }}>Edit</MDBBtn>)} />
         <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">  Delete</MDBBtn></MDBContainer> )
           :
         ( <div></div>)}

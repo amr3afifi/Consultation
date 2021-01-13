@@ -43,6 +43,9 @@ export default class EditProfile extends Component {
       }
 
     componentDidMount =()=>{
+
+        
+
         document.getElementById('ep-email').value=this.state.user.email;
         document.getElementById('ep-username').value=this.state.user.username;
         document.getElementById('ep-first').value=this.state.user.first;
