@@ -20,6 +20,8 @@ export class MatchCard extends Component {
     team2:'',
     logo1:'',
     logo2:'',
+    seats:[],
+    bookdate:'',
     mode:'false',
     user:''
   }
@@ -27,7 +29,7 @@ export class MatchCard extends Component {
   
   componentDidMount() {
     this.setState({
-      id: this.props.match._id,
+      id: this.props.match.matchid,
       stadium: this.props.match.stadium,
       time: this.props.match.time,
       date: this.props.match.date,
@@ -35,6 +37,8 @@ export class MatchCard extends Component {
       team2: this.props.match.team2,
       logo1: this.props.match.logo1,
       logo2: this.props.match.logo2,
+      seats: this.props.match.seats,
+      bookdate: this.props.match.bookdate,
       mode: this.props.mode,
       user: this.props.user
     });
@@ -42,19 +46,20 @@ export class MatchCard extends Component {
   }
 
   deleteRequest = () => {
-    axios.put(this.context.baseURL+'/deleteMatch',
-    {"id":this.state.id}
-    ).then(res => {
-      if(res.status===200) // Successful
-      {
-        console.log(res.data)
-          if(res.data.success===true)
-          {
-            window.location.reload(false);
-          }
-      }
-      else
-      {      alert(res)          }}).catch(err =>{alert(err)})
+    console.log(this.state.seats)
+    // axios.put(this.context.baseURL+'/deleteMatch',
+    // {"id":this.state.id}
+    // ).then(res => {
+    //   if(res.status===200) // Successful
+    //   {
+    //     console.log(res.data)
+    //       if(res.data.success===true)
+    //       {
+    //         window.location.reload(false);
+    //       }
+    //   }
+    //   else
+    //   {      alert(res)          }}).catch(err =>{alert(err)})
   }
 
   render() {
@@ -65,15 +70,22 @@ export class MatchCard extends Component {
   <MDBCard style={{ minWidth: '450px',width: "80%", margin: "15px auto 10px auto" }}>
     
     <MDBCardBody>
-      <MDBCardTitle>{this.state.team1} VS {this.state.team2}</MDBCardTitle>
       <MDBContainer>
-        <div style={{ width: "200px"}}>{this.state.date} at {this.state.time}</div>
-        <div style={{ width: "200px"}}>{this.state.stadium}</div>
+        <div style={{ width: "300px"}}>Match ID: {this.state.id}</div>
+        <div style={{ width: "300px"}}>Booking Date: {this.state.date}</div>
+
+        {modecheck === 'false' ? 
+        ( 
+        <div></div> )
+          :
+        (<div><div style={{ width: "200px"}}>Seats: {this.state.seats.join(" , ")}</div>
+        
+        </div>)}
         {modecheck === 'false' ? 
         ( 
         <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/reserveSeats/'+this.state.id) }}>Details</MDBBtn>)} /> )
           :
-        ( <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">Cancel</MDBBtn>)}
+        ( <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger" onClick={() => this.deleteRequest()}>Cancel</MDBBtn>)}
 
          {modecheck === 'false' && (userType==='manager' || userType==='admin') ? 
         ( <MDBContainer>

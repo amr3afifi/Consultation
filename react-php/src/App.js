@@ -48,7 +48,7 @@ function App() {
         {/*Logged In */}
         <LoggedInProtectedRoute path="/editProfile" exact component={EditProfile}/>
         <LoggedInProtectedRoute path="/reservations" exact component={Reservations}/>
-        <LoggedInProtectedRoute path="/reserveSeats" exact component={ReserveSeats}/>
+        <LoggedInProtectedRoute path="/reserveSeats" component={ReserveSeats}/>
 
         {/*ADMIN pages */}
         <AdminProtectedRoute path="/newUsers" exact component={NewUsers}/>

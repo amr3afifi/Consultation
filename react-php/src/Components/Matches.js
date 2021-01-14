@@ -19,7 +19,7 @@ export default class Matches extends Component {
 ,user:''
 }
       
-      componentWillMount() 
+      componentDidMount() 
       {
         let userType = localStorage.getItem("userType");
         this.setState({user: userType});

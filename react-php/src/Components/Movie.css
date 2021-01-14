@@ -10,10 +10,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
   font-family: 'Lato', sans-serif;
   margin: 50px auto 0 auto;
+
 }
+
+.divider-title{
+  background: #fff;
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 0 20px;
+      text-transform: uppercase;
+      font-family: Circular, spotify-circular, Helvetica, Arial, sans-serif;
+  }
+
+ .divider{
+    border-top: 1px solid #d9dadc;
+        display: block;
+        line-height: 1px;
+        margin: 25px 0;
+        position: relative;
+        text-align: center;
+    }
 
 #movie .movie-container {
   margin: 20px 0;
@@ -27,8 +46,6 @@
   font-size: 18px;
   margin-left: 10px;
   padding: 5px 15px 5px 15px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
   appearance: none;
   
 }
