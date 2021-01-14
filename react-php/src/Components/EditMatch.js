@@ -114,6 +114,7 @@ export default class EditMatch extends Component {
         select = document.getElementById("time");
         select.value = this.state.time;
     }
+    
 
     render() {
         const submitOrNot = this.state.status;

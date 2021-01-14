@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import {Route} from 'react-router-dom'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBBtn, MDBContainer } from "mdbreact";
 import PropTypes from "prop-types";
+import axios from 'axios'
+import {ConfigContext} from '../Context/ConfigContext'
 /**
  * Track class
  * @extends Component
  */
 export class MatchCard extends Component {
+  static contextType=ConfigContext;
+
   state = {
     id:'',
     stadium:'',
@@ -23,7 +27,7 @@ export class MatchCard extends Component {
   
   componentDidMount() {
     this.setState({
-      id: this.props.match.id,
+      id: this.props.match._id,
       stadium: this.props.match.stadium,
       time: this.props.match.time,
       date: this.props.match.date,
@@ -35,6 +39,22 @@ export class MatchCard extends Component {
       user: this.props.user
     });
    
+  }
+
+  deleteRequest = () => {
+    axios.put(this.context.baseURL+'/deleteMatch',
+    {"id":this.state.id}
+    ).then(res => {
+      if(res.status===200) // Successful
+      {
+        console.log(res.data)
+          if(res.data.success===true)
+          {
+            window.location.reload(false);
+          }
+      }
+      else
+      {      alert(res)          }}).catch(err =>{alert(err)})
   }
 
   render() {
@@ -58,7 +78,7 @@ export class MatchCard extends Component {
          {modecheck === 'false' && (userType==='manager' || userType==='admin') ? 
         ( <MDBContainer>
         <Route render={({ history}) => (<MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="default" onClick={() => { history.push('/editMatch/'+this.state.id) }}>Edit</MDBBtn>)} />
-        <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger">  Delete</MDBBtn></MDBContainer> )
+        <MDBBtn style={{ float:'right',width:"120px",margin: "0 0 0 2%" }} color="danger" onClick={() => this.deleteRequest()}>  Delete</MDBBtn></MDBContainer> )
           :
         ( <div></div>)}
       </MDBContainer>
